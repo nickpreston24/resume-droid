@@ -5,63 +5,127 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- <link
-      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
-      rel="stylesheet"
-      type="text/css"
-    /> -->
-
-    <!-- <script src="https://unpkg.com/htmx.org@1.8.5"></script> -->
-    <!-- <script src="//unpkg.com/alpinejs" defer></script> -->
-    <title>What's Taters, Precious?</title>
+    <title>Resume Droid</title>
     <script type="module" src="./main.js"></script>
     <link rel="stylesheet" href="./dist/style.css" />
+    <!-- <link rel="stylesheet" href="./snow.css" /> -->
+
+    <!-- <script>
+      // from: https://quilljs.com/docs/quickstart
+      console.log("loading quill..");
+      // import Quill from './main.js'
+      const quill = new Quill("#editor", {
+        theme: "snow",
+      });
+    </script> -->
   </head>
-  <body data-theme="forest">
+  <body data-theme="halloween">
     <div x-data="setup()" class="flex flex-col items-center justify-center">
-      <div class="flex flex-center hero min-h-screen bg-base-200">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-          <button class="btn btn-accent">GO</button>
-          <!-- <iframe
-            width="420"
-            height="746"
-            src="https://www.youtube.com/embed/jOH3r2X_k7U"
-            title="potato day"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe> -->
+      <h1
+        x-text="message"
+        class="text-5xl text-ocean-200 text-primary font-bold"
+      ></h1>
 
-          <div>
-            <h1 x-text="message" class="text-5xl text-primary font-bold"></h1>
-            <p class="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-
-            <a href="https://www.youtube.com/shorts/jOH3r2X_k7U">
-              <button class="btn btn-primary">🥔 Go</button>
-            </a>
-          </div>
+      <!-- <section class="grid lg:grid-cols-3 grid-cols-2 grid-rows-auto gap-4">
+        <div
+          class="p-4 border-2 border-pink-400 bg-ocean-500 text-white w-40 h-auto"
+        >
+          1
         </div>
+        <div
+          class="p-4 border-2 border-pink-400 bg-ocean-500 text-white w-40 h-auto"
+        >
+          2
+        </div>
+        <div
+          class="p-4 border-2 border-pink-400 bg-ocean-500 text-white w-40 h-auto"
+        >
+          3
+        </div>
+        <div
+          class="p-4 border-2 border-pink-400 bg-ocean-500 text-white w-40 h-auto"
+        >
+          4
+        </div>
+      </section> -->
+
+      <div class="flex flex-col gap-2 bg-base-200 border-2 border-red-300">
+        <!-- <div class="grid border-tahiti-400 border-2 grid-cols-2 grid-rows-auto"> -->
+        <!-- <button class="btn btn-primary">Go</button> -->
+
+        <template x-if="options.show_counter">
+          <div id="counter_example" x-data="{ count2: -1 }">
+            <button class="btn btn-accent" x-on:click="count++">
+              Increment
+            </button>
+            <button class="btn btn-secondary" x-on:click="count=0">
+              Reset
+            </button>
+
+            <span x-text="count"></span>
+          </div>
+        </template>
+
+        <section id="editor_grid" class="bg-content-200">
+          <div x-data="{resume_text: $persist('lorem')}" class="card">
+            <div id="toolbar"></div>
+            <div id="editor">
+              <span x-html="resume_text"></span>
+            </div>
+          </div>
+
+          <!-- <div>?</div> -->
+        </section>
+        <!-- </div> -->
       </div>
     </div>
   </body>
+
   <script>
+    // let initial_resume_text = $persist(
+    //   "Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi."
+    // );
     function setup() {
       return {
+        limit: 5,
+        // count: $persist(0),
         message: "My custom resume editor!",
         skills: {
           databases: ["MySQL", "SQL Server"],
           devops: ["Docker", "Docker Compose", "Azure", "CI/CD"],
         },
+        // resume_text: initial_resume_text,
+        // job_description:
+        //   "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia nostrum ut perspiciatis sit eveniet! Dolores qui quam laborum, a omnis hic aliquam asperiores beatae esse iusto sunt porro necessitatibus optio.",
+
+        options: {
+          get show_counter() {
+            return !this.count < this.limit;
+          },
+        },
       };
     }
   </script>
 </html>
+
+<!-- <div x-data="{resume_text: $persist('lorem')}" class="card">
+    <div class="card-body">
+      <textarea
+        :value="resume_text"
+        name="left"
+        class="h-screen"
+        id="editor_left"
+        cols="auto"
+        rows="150"
+      ></textarea>
+    </div>
+  </div> -->
+
+<!-- <textarea
+    :value="job_description"
+    name="left"
+    class="h-screen"
+    id="editor_left"
+    cols="auto"
+    rows="100"
+  ></textarea> -->
