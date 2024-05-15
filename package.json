@@ -5,10 +5,19 @@
   "scripts": {
     "start": "npx http-server ./dist",
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "npm run buildcss && vite build",
+    "preview": "vite preview",
+    "buildcss": "npx tailwindcss -i ./style.css -o ./dist/style.css"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
     "vite": "^2.9.9"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.10",
+    "daisyui": "^4.11.1",
+    "htmx.org": "^1.9.12"
   }
 }
